@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  deadline: 2022-06-01
+  completed: false
+  user_id: 1
+  assingee_id: 1
+  public: false
+
+two:
+  name: MyString
+  description: MyString
+  deadline: 2022-06-01
+  completed: false
+  user_id: 1
+  assingee_id: 1
+  public: false

@@ -36,5 +36,14 @@ module TodoApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    
+    config.generators do |g|
+      g.test_framework :rspec,
+        fixtures: false,
+        view_specs: false,
+        helper_spec: false,
+        routing_spec: false
+        g.factory_bot false
+    end
   end
 end
