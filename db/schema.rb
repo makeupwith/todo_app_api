@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_022537) do
+ActiveRecord::Schema.define(version: 2022_06_02_073522) do
 
   create_table "subtasks", force: :cascade do |t|
-    t.integer "task_id"
+    t.integer "task"
     t.string "description"
     t.boolean "completed"
     t.datetime "created_at", precision: 6, null: false
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 2022_06_01_022537) do
     t.string "description"
     t.date "deadline"
     t.boolean "completed"
-    t.integer "user_id_id"
-    t.integer "assignee_id_id"
+    t.integer "user_id"
+    t.integer "assignee_id"
     t.boolean "public"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["assignee_id_id"], name: "index_tasks_on_assignee_id_id"
-    t.index ["user_id_id"], name: "index_tasks_on_user_id_id"
+    t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,6 +42,6 @@ ActiveRecord::Schema.define(version: 2022_06_01_022537) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "tasks", "users", column: "assignee_id_id"
-  add_foreign_key "tasks", "users", column: "user_id_id"
+  add_foreign_key "tasks", "users"
+  add_foreign_key "tasks", "users", column: "assignee_id"
 end

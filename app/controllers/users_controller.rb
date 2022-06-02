@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
     render json: @user
   end
 
@@ -27,7 +27,10 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+    @user = User.find(params[:id])
+    
     if @user.update(user_params)
+      logger.debug(params[:password])
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -36,7 +39,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
   end
 

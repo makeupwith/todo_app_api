@@ -1,6 +1,17 @@
+# == Schema Information
+#
+# Table name: subtasks
+#
+#  id          :integer          not null, primary key
+#  completed   :boolean
+#  description :string
+#  task        :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class Subtask < ApplicationRecord
   # モデルの関連付け -> tasks
-  belongs_to :tasks
+  belongs_to :task
   
   # 詳細
   validates :description, presence: true
