@@ -1,10 +1,34 @@
 require 'rails_helper'
  
 RSpec.describe "Sessions", type: :request do
-  describe "GET /login" do
-    it "returns http success" do
-      get login_path
-      expect(response).to have_http_status :success
+  before do
+    @user = FactoryBot.build(:user)
+  end
+  
+  describe "POST /login" do
+    it "ログインできる" do
+      user = FactoryBot.create(:user)
+      post login_path, params: { session: { email: user.email,
+                                           password: user.password } }
+      expect(logged_in?).to be_truthy
+    end
+    
+    it "IDが正しい" do
+      user = FactoryBot.create(:user)
+      post login_path, params: { session: { email: user.email,
+                                           password: user.password } }
+      expect(session[:user_id]).to eq(@user.id)
+    end
+  end
+  
+  describe 'DELETE /logout' do
+    it 'ログアウトできる' do
+      user = FactoryBot.create(:user)
+      post login_path, params: { session: { email: user.email,
+                                          password: user.password } }
+    
+      delete logout_path
+      expect(logged_in?).to_not be_truthy
     end
   end
 end
