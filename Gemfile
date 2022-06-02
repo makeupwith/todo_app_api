@@ -44,6 +44,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :test do
+  gem 'capybara', '3.28.0'
   gem 'shoulda-matchers', '~> 5.0'
-  # gem 'factory_bot_rails'
+  # FactoryBot関連
+  gem 'factory_bot_rails'
+  gem 'faker'
+  # デバック
+  gem 'pry-rails'
 end
