@@ -13,7 +13,7 @@ RSpec.describe "Sessions", type: :request do
       expect(logged_in?).to be_truthy
     end
     
-    it "IDが正しい" do
+    it "正しいIDが返却されているか" do
       user = FactoryBot.create(:user)
       post login_path, params: { session: { email: user.email,
                                            password: user.password } }

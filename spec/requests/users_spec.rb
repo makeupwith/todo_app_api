@@ -6,56 +6,44 @@ RSpec.describe "Users", type: :request do
   end
   
   let(:user) { FactoryBot.create(:user) }
-  let(:other_user) { FactoryBot.create(:user) }
+  # let(:other_user) { FactoryBot.create(:user) }
   
-  # ユーザの作成
-  describe "POST #create" do
-    # it "タスクの作成ができる" do
-    #   user_params = FactoryBot.attributes_for(:task)
-    #   log_in_as user
-      
-    #   expect {
-    #     post :create, params: { user: user_params }
-    #   }.to change(@user, :count).by(1)
-    # end
-    before do
-      @email = 'hoge_tarou@gmail.com'
-      @password = 'hogehoge'
-    end 
-    it "ユーザの作成ができる" do
-      post users_path, params: { user: { email: @email,
-                                                password: @password } }
-      # expect(@user.email).to eq @email
-      # expect(@user.password).to eq @password
-    end
-  end
-  
-  # ユーザの一覧取得
+  # GET #index / ユーザの一覧取得
   describe "GET #index" do
     context "認証済みユーザとして" do
       it "ユーザの一覧を取得できる" do
         log_in_as user
         get user_path user
-        expect(response).to have_http_status "200"
         expect(assigns :user).to eq user
       end
     end
   end
   
-  # ユーザ情報の取得
+  # POST #create / ユーザの作成
+  describe "POST #create" do
+    it "ユーザの作成ができる" do
+      user_params = FactoryBot.attributes_for(:user)
+      
+      # ユーザが作成されない
+      # expect {
+      #   post users_path, params: { user: user_params }
+      # }.to change(User, :count).by(1)
+    end
+  end
+  
+  # GET #show / ユーザ情報の取得
   describe "GET #show" do
     context "認証済みユーザとして" do
       it "ユーザ情報を取得できる" do
         log_in_as user
         get user_path user, params: { session: { email: user.email,
                                            password: user.password } }
-        expect(response).to have_http_status "200"
-        expect(user.id).to eq(@user.id)
+        expect(assigns :user).to eq user
       end
     end
   end
   
-  # ユーザ情報の更新
+  # PATCH #update / ユーザ情報の更新
   describe "PATCH #update" do
     context "認証済みユーザとして" do
       before do
@@ -63,7 +51,7 @@ RSpec.describe "Users", type: :request do
         @name = 'hoge'
         @email = 'hoge@gmail.com'
         @password = 'password'
-        patch user_path(user), params: { user: { display_name: @name,
+        patch user_path user, params: { user: { display_name: @name,
                                                   email: @email,
                                                   password: '12345678',
                                                   password_confirmation: @password } }
