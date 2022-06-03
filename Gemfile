@@ -54,4 +54,5 @@ group :test do
   # デバック
   gem 'pry-rails'
   gem 'annotate'
+  gem 'rails-controller-testing'
 end

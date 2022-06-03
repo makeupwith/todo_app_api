@@ -10,6 +10,14 @@ RSpec.describe "Users", type: :request do
   
   # ユーザの作成
   describe "POST #create" do
+    # it "タスクの作成ができる" do
+    #   user_params = FactoryBot.attributes_for(:task)
+    #   log_in_as user
+      
+    #   expect {
+    #     post :create, params: { user: user_params }
+    #   }.to change(@user, :count).by(1)
+    # end
     before do
       @email = 'hoge_tarou@gmail.com'
       @password = 'hogehoge'
@@ -25,10 +33,11 @@ RSpec.describe "Users", type: :request do
   # ユーザの一覧取得
   describe "GET #index" do
     context "認証済みユーザとして" do
-      it "ユーザ情報の一覧を取得できる" do
+      it "ユーザの一覧を取得できる" do
         log_in_as user
         get user_path user
         expect(response).to have_http_status "200"
+        expect(assigns :user).to eq user
       end
     end
   end
@@ -48,7 +57,7 @@ RSpec.describe "Users", type: :request do
   
   # ユーザ情報の更新
   describe "PATCH #update" do
-    context "as an authenticated user" do
+    context "認証済みユーザとして" do
       before do
         log_in_as user
         @name = 'hoge'
