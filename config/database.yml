@@ -22,7 +22,7 @@ test:
 
 production:
   adapter: mysql2
-  encoding: utf8mb4
+  encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV['DB_HOST'] %>
   socket: <%= ENV['DB_SOCKET'] %>
