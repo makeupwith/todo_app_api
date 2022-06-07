@@ -118,6 +118,7 @@ RSpec.describe "Tasks", type: :request do
       
       
       it "HTTP ステータスコード 204が返される" do
+        delete task_path task.id
         expect(response).to have_http_status(204)
       end
     end

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
+  
+  
   let(:user) { FactoryBot.create(:user) }
 
   # GET #index / ユーザの一覧取得
@@ -66,8 +68,8 @@ RSpec.describe "Users", type: :request do
         @password = "1234567890"
       end
       
-      it "HTTP ステータスコード 204が返される" do
-        expect(response).to have_http_status(204)
+      it "HTTP ステータスコード 200が返される" do
+        expect(response).to have_http_status(200)
       end
       
       it '表示名を変更できる' do
