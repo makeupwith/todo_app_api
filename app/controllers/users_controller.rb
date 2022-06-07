@@ -8,39 +8,37 @@ class UsersController < ApplicationController
     render json: @users
   end
 
-  # GET /users/1
-  def show
-    @user = User.find(params[:id])
-    render json: @user
-  end
-
   # POST /users
   def create
     @user = User.new(user_params)
 
     if @user.save
+      # puts "post/sucess" # デバッグ
       render json: @user, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      # puts "post/fail" # デバッグ
+      render json: @user.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /users/1
   def update
-    @user = User.find(params[:id])
-    
-    if @user.update(user_params)
-      logger.debug(params[:password])
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /users/1
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    # ログインしてるかどうか：app/helpers/sessions_helper.rb
+    # if logged_in?
+      # 該当のユーザを探す
+      @user = User.find(params[:id])
+      # 該当のユーザ情報を更新する
+      if @user.update(user_params)
+        # puts "patch/sucess" # デバッグ
+        render json: @user, status: :created
+      else
+        # puts "patch/fail" # デバッグ
+        render json: @user.errors, status: :unprocessable_entity
+      end
+    # else
+    #   puts "not_logged_in" # デバッグ用
+    # render json: { errors: { title: 'ログインがされていません', detail: 'IDに該当するユーザは只今ログインされていません' } }, status: :unauthorized 
+    # end
   end
 
   private
@@ -51,6 +49,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :password_digest, :display_name)
+      params.require(:user).permit(:email, :password, :display_name)
     end
 end
