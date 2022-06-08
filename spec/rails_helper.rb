@@ -61,6 +61,22 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  
+  # テストケース共通の事前処理
+  config.before(:each) do
+
+    # let(:rspec_session) で指定された値を セッションの初期値とします
+    session = defined?(rspec_session) ? rspec_session : {}
+
+    # destroyメソッドを実行してもエラーにならないようにします（必要であれば）
+    session.class_eval { def destroy; nil; end }
+
+    # 追記 実行後のセッションを取得できるようにする
+    config.add_setting(:session, :default => session)
+
+    # 変更 sessionメソッドをRSpec.configuration.sessionで上書き
+    allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return(RSpec.configuration.session)
+  end
 end
 
 Shoulda::Matchers.configure do |config|

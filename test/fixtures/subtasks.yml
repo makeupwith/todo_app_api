@@ -5,9 +5,17 @@
 #  id          :integer          not null, primary key
 #  completed   :boolean
 #  description :string
-#  task        :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  task_id     :integer
+#
+# Indexes
+#
+#  index_subtasks_on_task_id  (task_id)
+#
+# Foreign Keys
+#
+#  task_id  (task_id => tasks.id)
 #
 
 one:

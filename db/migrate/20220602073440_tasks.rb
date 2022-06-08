@@ -1,4 +1,6 @@
 class Tasks < ActiveRecord::Migration[6.1]
+  drop_table :tasks
+  
   def change
     create_table :tasks do |t|
       t.string :name

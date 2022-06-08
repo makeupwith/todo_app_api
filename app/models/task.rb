@@ -26,6 +26,7 @@
 class Task < ApplicationRecord
   # モデルの関連付け -> users
   belongs_to :user
+  has_many :subtasks
   
   # 名前
   validates :name, presence: true
@@ -37,7 +38,7 @@ class Task < ApplicationRecord
   validate :deadline
   
   # 完了
-  validates :completed, presence: true
+  validates :completed, inclusion: [true, false]
   
   # ユーザID
   validates :user_id, presence: true
@@ -46,5 +47,5 @@ class Task < ApplicationRecord
   validate :assignee_id
   
   # 公開権限
-  validates :public, presence: true
+  validates :public, inclusion: [true, false]
 end

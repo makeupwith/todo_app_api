@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 # RSpec
-RSpec.describe User, type: :model do
+RSpec.describe Subtask, type: :model do
   # アソシエーションのテスト
   describe 'associations' do
-    it { should have_many(:tasks) }
+    it { should belong_to(:task) }
   end
 
   # バリデーションのテスト
